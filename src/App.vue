@@ -7,17 +7,18 @@ async function submit() {
 
 <template>
   <div class="bg-white rounded-xl shadow-xl p-8 mx-auto my-16 max-w-[450px]">
-   
-       <!-- <button class="border-2 px-2 py-1 mb-4" @click="changeLocale('en')">
+    <!-- <button class="border-2 px-2 py-1 mb-4" @click="changeLocale('en')">
       Show in Englisch
     </button> -->
 
-    <h1 class="text-2xl mb-4">Sommerfest Skills</h1>
+    <h1 class="text-2xl mb-4">
+      Sommerfest Skills
+    </h1>
 
     <FormKit
+      v-slot="{ value }"
       type="form"
       :config="{ validationVisibility: 'live' }"
-      #default="{ value }"
       @submit="submit"
     >
       <!-- <FormKit type="text" label="name" /> -->
@@ -45,36 +46,39 @@ async function submit() {
         ]"
       />
 
-      <FormKit type="group" name="dance" id="dance">
-
       <FormKit
-        type="range"
-        name="level"
-        label="Tanz-Skills"
-        value="5"
-        min="1"
-        max="10"
-        step="1"
-        help="Wie schätzt du deine Tanz-Skills ein?"
-      />
+        id="dance"
+        type="group"
+        name="dance"
+      >
+        <FormKit
+          type="range"
+          name="level"
+          label="Tanz-Skills"
+          value="5"
+          min="1"
+          max="10"
+          step="1"
+          help="Wie schätzt du deine Tanz-Skills ein?"
+        />
 
       
-      <FormKit
-        type="checkbox"
-        name="moves"
-        label="Tanz-Moves"
-        help="Was sind deine besten Tanz-Moves?"
-        :options="{
-          'boogie': 'Boogie',
-          'dab': 'Dab',
-          'headbanging': 'Headbanging',
-          'disco-fox': 'Disco Fox',
-          'macarena': 'Macarena',
-          'shuffle': 'Shuffle',
-          'rhabarberbarbara': 'Rhabarberbarbara',
-        }"
-        validation="required|min:2"
-      />  
+        <FormKit
+          type="checkbox"
+          name="moves"
+          label="Tanz-Moves"
+          help="Was sind deine besten Tanz-Moves?"
+          :options="{
+            'boogie': 'Boogie',
+            'dab': 'Dab',
+            'headbanging': 'Headbanging',
+            'disco-fox': 'Disco Fox',
+            'macarena': 'Macarena',
+            'shuffle': 'Shuffle',
+            'rhabarberbarbara': 'Rhabarberbarbara',
+          }"
+          validation="required|min:2"
+        />  
       </FormKit>
       
       <FormKit
