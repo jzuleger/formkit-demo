@@ -1,14 +1,25 @@
 <script setup>
-async function submit() {
-  await new Promise(r => setTimeout(r, 1000))
-  alert('Submitted! 🎉')
-}
+import Contact from './components/Contact-Information.vue';
+
+  const songs = [  
+    { label: 'Song 2', value: 'song-2' },
+    { label: 'Angels', value: 'angels' },
+    { label: 'Firestarter', value: 'firestarter' },
+    { label: 'Major Tom', value: 'major-tom' },
+    { label: 'Mr Brightside', value: 'mister-brightside' },
+    { label: 'Just Dance', value: 'just-danec' }
+  ];
+
+  async function submit() {
+    await new Promise(r => setTimeout(r, 1000))
+    alert('Submitted! 🎉')
+  }
 </script>
 
 <template>
   <div class="bg-white rounded-xl shadow-xl p-8 mx-auto my-16 max-w-[450px]">
     <!-- <button class="border-2 px-2 py-1 mb-4" @click="changeLocale('en')">
-      Show in Englisch
+        Show in Englisch
     </button> -->
 
     <h1 class="text-2xl mb-4">
@@ -18,9 +29,11 @@ async function submit() {
     <FormKit
       v-slot="{ value }"
       type="form"
-      :config="{ validationVisibility: 'live' }"
       @submit="submit"
     >
+      <!--       :config="{ validationVisibility: 'live' }"
+ -->
+
       <!-- <FormKit type="text" label="name" /> -->
       <FormKit
         type="text"
@@ -28,7 +41,7 @@ async function submit() {
         label="Dein Name"
         placeholder="Namen eingeben"
         help="Wie willst du genannt werden?"
-        validation="required|length:4"
+        validation="required|(1000)length:2|alpha:latin"
         :validation-messages="{ required: 'Ohne Name keine Party', length: 'Dein Name ist zu kurz' }"
         validation-visibilty="live"
       />
@@ -47,7 +60,20 @@ async function submit() {
       />
 
       <FormKit
-        id="dance"
+        type="select"
+        label="Aus welchem Standort kommst du?"
+        name="standort"
+        :options="[
+          'Berlin',
+          'Hamburg',
+          'Köln',
+          'Leipzig',
+          'Mainz',
+          'München'
+        ]"
+      />
+
+      <FormKit
         type="group"
         name="dance"
       >
@@ -62,7 +88,6 @@ async function submit() {
           help="Wie schätzt du deine Tanz-Skills ein?"
         />
 
-      
         <FormKit
           type="checkbox"
           name="moves"
@@ -86,22 +111,36 @@ async function submit() {
         name="songs"
         label="Party-Songs"
         help="Welche Songs sollen unbedingt gespiel werden?"
+        add-label="Song hinzufügen"
       >
         <FormKit
-          type="text"
+          type="autocomplete"
           name="song"
           label="Dein Song"
           validation="required"
+          :options="songs"
+          popover
         />
       </FormKit>
 
       <FormKit
         type="time"
         label="Polnischen?"
+        name="leave"
         min="1:00"
         max="5:00"
         help="Wann sollte man frühestens einen Polnischen machen?"
       />
+
+      <FormKit
+        type="group"
+        name="contact"
+      >
+        <h2 class="text-md mb-3">
+          Kontakt für Fundsachen, etc
+        </h2>
+        <Contact />
+      </FormKit>
 
       <FormKit
         type="checkbox"
@@ -111,7 +150,7 @@ async function submit() {
         validation="required"
       />
 
-      <!-- <pre class="font-mono text-sm p-4 bg-slate-100 mb-4">{{ value }}</pre> -->
+      <pre class="font-mono text-sm p-4 bg-slate-100 mb-4">{{ value }}</pre> 
     </FormKit>
   </div>
 </template>
