@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@formkit/addons": "^1.6.5",
     "@formkit/core": "latest",
     "@formkit/i18n": "^1.6.5",
     "@formkit/icons": "latest",

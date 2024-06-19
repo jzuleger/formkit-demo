@@ -1,8 +1,8 @@
 <script setup>
-  import { createInput } from '@formkit/vue'
+  // import { createInput } from '@formkit/vue'
   import { dance, songs, locations, travel } from './config';
-  import Contact from './components/Contact-Information.vue';
-  import CustomInput from './components/Custom-Input.vue';
+  // import Contact from './components/Contact-Information.vue';
+  // import CustomInput from './components/Custom-Input.vue';
 
   async function submit() {
     await new Promise(r => setTimeout(r, 1000))
@@ -10,11 +10,15 @@
     alert('Submitted! 🎉')
   }
 
-  const custom = createInput(CustomInput);
+  // const custom = createInput(CustomInput);
 </script>
 
 <template>
   <div class="bg-white rounded-xl shadow-xl p-8 mx-auto my-16 max-w-[720px]">
+    <!-- <button class="border-2 px-2 py-1 mb-4" @click="changeLocale('en')">
+        Show in Englisch
+    </button> -->
+
     <h1 class="text-2xl mb-4">
       Sommerfest Skills
     </h1>
@@ -23,12 +27,15 @@
       id="sommerfest"
       v-slot="{ value }"
       type="form"
-      :config="{ validationVisibility: 'submit' }"
+      :config="{ validationVisibility: 'live' }"
       submit-label="Absenden"
       @submit="submit"
     >
+      <!--       :config="{ validationVisibility: 'live' }"-->
+
       <div class="flex justify-between gap-10">
         <div class="grow">
+          <!-- <FormKit type="text" label="name" /> -->
           <FormKit
             type="text"
             name="name"
@@ -37,7 +44,14 @@
             help="Wie willst du genannt werden?"
             validation="required|(1000)length:2|alpha:latin"
             :validation-messages="{ required: 'Ohne Name keine Party', length: 'Dein Name ist zu kurz' }"
+            validation-visibilty="live"
           />
+
+          <!-- <FormKit
+        :type="custom"
+        name="custom"
+        label="Custom Input"
+      /> -->
     
           <FormKit
             type="radio"
@@ -52,6 +66,7 @@
             name="standort"
             :options="locations"
           />
+
 
           <FormKit
             type="group"
@@ -69,12 +84,6 @@
 
             <Contact v-if="value.contact?.addContact" />
           </FormKit>
-
-          <FormKit
-            :type="custom"
-            name="custom"
-            label="Custom Input"
-          /> 
         </div>
         <div>
           <FormKit
@@ -138,10 +147,9 @@
         </div>
       </div>
 
-      <details class="mb-5">
-        <summary>Live Form Data</summary>
-        <pre>{{ value }}</pre>
-      </details>
+      <div class="absolute right-0 bottom-0">
+        <pre class="font-mono text-sm p-4 bg-slate-100 mb-4">{{ value }}</pre> 
+      </div>
     </FormKit>
   </div>
 </template>
